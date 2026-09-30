@@ -16,6 +16,7 @@ import {
   EnvelopeIcon,
   TruckIcon
 } from '@heroicons/react/24/outline'
+import { formatPrice } from '../utils/currency'
 
 const CarDetail = () => {
   const { id } = useParams()
@@ -90,7 +91,7 @@ const CarDetail = () => {
         </div>
         <div className="text-right">
           <div className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
-            ₹{car.price.toLocaleString()}
+            {formatPrice(car.price)}
           </div>
           {car.condition === 'Excellent' && (
             <div className="inline-flex items-center gap-1 bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full text-sm mt-2 border border-emerald-500/20">

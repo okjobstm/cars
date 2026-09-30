@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { motion, AnimatePresence } from 'framer-motion'
 import AddCarModal from '../components/AddCarModal'
+import { formatPrice } from '../utils/currency'
 import {
   PlusIcon,
   PencilIcon,
@@ -68,7 +69,7 @@ const AdminPanel = () => {
   const stats = [
     { label: 'Total Cars', value: cars.length, icon: TruckIcon, color: 'text-blue-500', bg: 'bg-blue-500/10' },
     { label: 'Total Users', value: users.length, icon: UserGroupIcon, color: 'text-purple-500', bg: 'bg-purple-500/10' },
-    { label: 'Total Value', value: `₹${(cars.reduce((acc, car) => acc + car.price, 0) / 10000000).toFixed(1)}Cr`, icon: CurrencyDollarIcon, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+    { label: 'Total Value', value: formatPrice(cars.reduce((acc, car) => acc + car.price, 0)), icon: CurrencyDollarIcon, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
   ]
 
   return (
@@ -176,7 +177,7 @@ const AdminPanel = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="p-4 text-slate-300">₹{car.price.toLocaleString()}</td>
+                        <td className="p-4 text-slate-300">{formatPrice(car.price)}</td>
                         <td className="p-4 text-slate-300">{car.year}</td>
                         <td className="p-4">
                           <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full border ${car.condition === 'Excellent' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' :

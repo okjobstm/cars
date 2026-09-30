@@ -155,8 +155,8 @@ export default function AddCarModal({ open, onClose, onCreated }) {
                     <div>
                       <label className="label">Price</label>
                       <div className="relative">
-                        <span className="absolute left-4 top-3.5 text-zinc-500">₹</span>
-                        <input type="number" className="input-field pl-8" value={carForm.price} onChange={e => setCarForm({ ...carForm, price: e.target.value })} placeholder="2500000" required />
+                        <span className="absolute left-4 top-3.5 text-zinc-500">FCFA</span>
+                        <input type="number" className="input-field pl-16" value={carForm.price} onChange={e => setCarForm({ ...carForm, price: e.target.value })} placeholder="2500000" required />
                       </div>
                     </div>
                   </div>

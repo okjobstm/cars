@@ -201,7 +201,7 @@ const CarListing = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-zinc-500 font-semibold">Price Range (₹)</label>
+                  <label className="text-xs uppercase tracking-wider text-zinc-500 font-semibold">Price Range (FCFA)</label>
                   <div className="flex gap-2">
                     <input
                       type="number"

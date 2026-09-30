@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { HeartIcon, BoltIcon, CalendarIcon } from '@heroicons/react/24/outline'
+import { formatPrice } from '../utils/currency'
 
 const CarCard = ({ car }) => {
     return (
@@ -43,7 +44,7 @@ const CarCard = ({ car }) => {
                         <p className="text-zinc-500 text-sm">{car.year} • {car.transmission}</p>
                     </div>
                     <p className="text-xl font-bold text-white">
-                        ₹{(car.price / 100000).toFixed(1)}L
+                        {formatPrice(car.price)}
                     </p>
                 </div>
 
