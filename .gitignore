@@ -1,0 +1,196 @@
+### Core Node / Vite
+node_modules/
+dist/
+build/
+.vite/
+
+### Logs & diagnostics
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+*.tmp
+
+### Environment & secrets
+.env
+.env.local
+.env.*.local
+
+### IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+### App specific
+server/uploads/
+server/public/temp/
+client/public/temp/
+
+### Caches / tooling
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+
+### Coverage / reports
+coverage/
+.nyc_output/
+
+### Misc platforms (harmless if absent)
+.next/
+.vercel/
+serverless/
+.aws-sam/
+.terraform/
+
+### Python / other language artefacts (not used, precaution)
+.venv/
+
+### Ignore generated docs (optional – keep DATA_FLOW.md)
+server/docs/*.md
+!server/docs/DATA_FLOW.md
+
+### Lockfiles (uncomment to ignore if you don’t want them tracked)
+# package-lock.json
+# yarn.lock
+
+# Ignore any .idea folders
+.idea/
+
+# Ignore any .vscode folders
+.vscode/
+
+
+# Ignore any .DS_Store files
+.DS_Store
+
+# Ignore any Thumbs.db files
+Thumbs.db
+
+# Ignore any .log files
+*.log
+
+# Ignore any .tmp files
+*.tmp
+
+# Ignore any .cache folders
+.cache/
+
+# Ignore any .next folders
+.next/
+
+# Ignore any .vercel folders
+.vercel/
+
+# Ignore any .env.production files
+.env.production
+
+# Ignore any .idea folders
+.idea/
+
+# Ignore any .sass-cache folders
+.sass-cache/
+
+# Ignore any .eslintcache files
+.eslintcache
+
+# Ignore any .parcel-cache folders
+.parcel-cache/
+
+# Ignore any .turbo folders
+.turbo/
+
+# Ignore any .firebase folders
+.firebase/
+
+# Ignore any .expo folders
+.expo/
+
+# Ignore any .expo-shared folders
+.expo-shared/
+
+# Ignore any .tmp folders
+.tmp/
+
+# Ignore any .history folders
+.history/
+
+# Ignore any .npm folders
+.npm/
+
+# Ignore any .yarn folders
+.yarn/
+
+# Ignore any .pnp folders
+.pnp/
+
+# Ignore any .cache-loader folders
+.cache-loader/
+
+# Ignore any .nyc_output folders
+.nyc_output/
+
+# Ignore any .coverage folders
+.coverage/
+
+# Ignore any .serverless folders
+.serverless/
+
+# Ignore any .aws-sam folders
+.aws-sam/
+
+# Ignore any .terraform folders
+.terraform/
+
+# Ignore any .envrc files
+.envrc
+
+# Ignore any .venv folders
+.venv/
+
+# Ignore any pipenv files
+Pipfile
+Pipfile.lock
+
+# Ignore any poetry files
+poetry.lock
+
+# Ignore any .python-version files
+.python-version
+
+# Ignore any .mypy_cache folders
+.mypy_cache/
+
+# Ignore any .pytest_cache folders
+.pytest_cache/
+
+# Ignore any .tox folders
+.tox/
+
+# Ignore any .coverage files
+.coverage
+
+# Ignore any .hypothesis folders
+.hypothesis/
+
+# Ignore any .pytype folders
+.pytype/
+
+# Ignore any .pyre folders
+.pyre/
+
+# Ignore any .ipynb_checkpoints folders
+.ipynb_checkpoints/
+
+# Ignore any .jupyter folders
+.jupyter/
+
+# Ignore any .Rhistory files
+.Rhistory
+
+# Ignore any .RData files
+.RData
+
+# Ignore any .Rproj.user folders
+.Rproj.user/
