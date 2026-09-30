@@ -33,12 +33,6 @@ const Login = () => {
     if (result.success) {
       navigate('/')
     } else {
-      if (result.requiresVerification) {
-        navigate(`/verify-email?email=${encodeURIComponent(result.email)}`, {
-          state: { email: result.email }
-        })
-        return
-      }
       setError(result.message)
     }
 

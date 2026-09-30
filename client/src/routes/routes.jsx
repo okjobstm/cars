@@ -13,7 +13,6 @@ const CarListing = lazy(() => import('../pages/CarListing'))
 const CarDetail = lazy(() => import('../pages/CarDetail'))
 const Profile = lazy(() => import('../pages/Profile'))
 const AdminPanel = lazy(() => import('../pages/AdminPanel'))
-const VerifyEmail = lazy(() => import('../pages/VerifyEmail'))
 const ResetPassword = lazy(() => import('../pages/ResetPassword'))
 
 const PageLoader = () => (
@@ -40,7 +39,6 @@ const routes = createRoutesFromElements(
     <Route index element={<Suspense fallback={<PageLoader />}><Home /></Suspense>} />
     <Route path="login" element={<Suspense fallback={<PageLoader />}><Login /></Suspense>} />
     <Route path="register" element={<Suspense fallback={<PageLoader />}><Register /></Suspense>} />
-    <Route path="verify-email" element={<Suspense fallback={<PageLoader />}><VerifyEmail /></Suspense>} />
     <Route path="reset-password" element={<Suspense fallback={<PageLoader />}><ResetPassword /></Suspense>} />
     <Route path="cars">
       <Route index element={<Suspense fallback={<PageLoader />}><CarListing /></Suspense>} />

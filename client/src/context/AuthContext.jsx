@@ -49,15 +49,6 @@ export const AuthProvider = ({ children }) => {
       setUser(userData)
       return { success: true }
     } catch (error) {
-      // Check if this is a verification error
-      if (error.response?.data?.requiresVerification) {
-        return { 
-          success: false, 
-          message: 'Email not verified. Please verify your email to continue.', 
-          requiresVerification: true,
-          email: error.response.data.email
-        }
-      }
       return { 
         success: false, 
         message: error.response?.data?.message || 'Login failed' 

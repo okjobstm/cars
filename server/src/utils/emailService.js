@@ -50,70 +50,6 @@ if (!BREVO_API_KEY) {
     console.log('[Email] Brevo API ready.');
 }
 
-const VERIFICATION_TEMPLATE = `
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Email Verification</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .container {
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        .header {
-            text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #4a90e2;
-            margin-bottom: 20px;
-        }
-        .highlight {
-            font-size: 24px;
-            font-weight: bold;
-            color: #4a90e2;
-            letter-spacing: 5px;
-            padding: 5px 10px;
-            background-color: #f0f7ff;
-            border-radius: 3px;
-        }
-        .footer {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 12px;
-            color: #777;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Email Verification</h1>
-        </div>
-        <p>Hello {{username}},</p>
-        <p>Thank you for registering with Car Dealership. To verify your account, please use the following OTP:</p>
-        <p style="text-align: center;">
-            <span class="highlight">{{otp}}</span>
-        </p>
-        <p>This OTP will expire in 15 minutes. If you did not request this verification, please ignore this email.</p>
-        <div class="footer">
-            <p>&copy; 2025 Car Dealership. All rights reserved.</p>
-            <p>This is an automated message, please do not reply.</p>
-        </div>
-    </div>
-</body>
-</html>
-`;
-
 const PASSWORD_RESET_TEMPLATE = `
 <!DOCTYPE html>
 <html>
@@ -185,7 +121,6 @@ const generateOTP = () => {
 export {
     transporter,
     MailOptions,
-    VERIFICATION_TEMPLATE,
     PASSWORD_RESET_TEMPLATE,
     generateOTP
 };

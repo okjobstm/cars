@@ -7,8 +7,6 @@ import {
   getUsers,
   deleteUser,
   logoutUser,
-  verifyEmail,
-  resendVerificationOtp,
   requestPasswordReset,
   resetPassword
 } from '../controllers/userController.js';
@@ -26,8 +24,6 @@ router.post('/login', loginUser);
 router.post('/logout', protect, logoutUser);
 
 // Email verification and password reset routes
-router.post('/verify-email', verifyEmail);
-router.post('/resend-verification', resendVerificationOtp);
 router.post('/request-password-reset', requestPasswordReset);
 router.post('/reset-password', resetPassword);
 

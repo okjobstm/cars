@@ -56,9 +56,7 @@ const Register = () => {
     const result = await register(registerData)
 
     if (result.success) {
-      navigate(`/verify-email?email=${encodeURIComponent(formData.email)}`, {
-        state: { email: formData.email }
-      })
+      navigate('/')
     } else {
       setError(result.message)
     }

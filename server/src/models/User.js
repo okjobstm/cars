@@ -41,18 +41,6 @@ const userSchema = new mongoose.Schema({
   resetOtpExpireAt: {
     type: Date,
     default: () => Date.now()
-  },
-  isVerified: {
-    type: Boolean,
-    default: false
-  },
-  verificationOtp: {
-    type: String,
-    default: ''
-  },
-  verificationOtpExpireAt: {
-    type: Date,
-    default: () => Date.now()
   }
 }, {
   timestamps: true
