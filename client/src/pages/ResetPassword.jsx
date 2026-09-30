@@ -22,10 +22,10 @@ const ResetPassword = () => {
 
     try {
       await axios.post('/api/users/request-password-reset', { email });
-      setSuccess('Password reset code sent to your email');
+      setSuccess('Code de réinitialisation envoyé par e-mail');
       setStep(2);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to send reset code');
+      setError(err.response?.data?.message || "Échec de l'envoi du code de réinitialisation");
     } finally {
       setLoading(false);
     }
@@ -35,7 +35,7 @@ const ResetPassword = () => {
     e.preventDefault();
 
     if (newPassword !== confirmPassword) {
-      setError('Passwords do not match');
+      setError('Les mots de passe ne correspondent pas');
       return;
     }
 
@@ -48,12 +48,12 @@ const ResetPassword = () => {
         newPassword
       });
 
-      setSuccess('Password reset successful!');
+      setSuccess('Mot de passe réinitialisé avec succès !');
       setTimeout(() => {
         navigate('/login');
       }, 3000);
     } catch (err) {
-      setError(err.response?.data?.message || 'Failed to reset password');
+      setError(err.response?.data?.message || 'Échec de la réinitialisation du mot de passe');
     } finally {
       setLoading(false);
     }
@@ -69,12 +69,12 @@ const ResetPassword = () => {
         <div className="glass-card p-8">
           <div className="text-center mb-8">
             <h2 className="heading-lg">
-              {step === 1 ? 'Reset Password' : 'New Password'}
+              {step === 1 ? 'Réinitialiser le mot de passe' : 'Nouveau mot de passe'}
             </h2>
             <p className="text-zinc-400">
               {step === 1
-                ? 'Enter your email to receive a reset code'
-                : 'Enter the code and your new password'
+                ? 'Saisissez votre e-mail pour recevoir un code de réinitialisation'
+                : 'Saisissez le code et votre nouveau mot de passe'
               }
             </p>
           </div>
@@ -95,7 +95,7 @@ const ResetPassword = () => {
             <form className="space-y-6" onSubmit={handleRequestOTP}>
               <div>
                 <label htmlFor="email" className="label">
-                  Email address
+                  Adresse e-mail
                 </label>
                 <input
                   id="email"
@@ -115,14 +115,14 @@ const ResetPassword = () => {
                 disabled={loading}
                 className="btn-primary w-full"
               >
-                {loading ? 'Sending...' : 'Send Reset Code'}
+                {loading ? 'Envoi...' : 'Envoyer le code'}
               </button>
             </form>
           ) : (
             <form className="space-y-6" onSubmit={handleResetPassword}>
               <div>
                 <label htmlFor="otp" className="label">
-                  Reset Code
+                  Code de réinitialisation
                 </label>
                 <input
                   id="otp"
@@ -139,7 +139,7 @@ const ResetPassword = () => {
 
               <div>
                 <label htmlFor="newPassword" className="label">
-                  New Password
+                  Nouveau mot de passe
                 </label>
                 <input
                   id="newPassword"
@@ -155,7 +155,7 @@ const ResetPassword = () => {
 
               <div>
                 <label htmlFor="confirmPassword" className="label">
-                  Confirm Password
+                  Confirmer le mot de passe
                 </label>
                 <input
                   id="confirmPassword"
@@ -174,7 +174,7 @@ const ResetPassword = () => {
                 disabled={loading}
                 className="btn-primary w-full"
               >
-                {loading ? 'Resetting...' : 'Reset Password'}
+                {loading ? 'Réinitialisation...' : 'Réinitialiser le mot de passe'}
               </button>
             </form>
           )}
@@ -185,7 +185,7 @@ const ResetPassword = () => {
               className="inline-flex items-center text-sm font-medium text-zinc-400 hover:text-white transition-colors"
             >
               <ArrowLeftIcon className="w-4 h-4 mr-2" />
-              Back to Login
+              Retour a la connexion
             </Link>
           </div>
         </div>

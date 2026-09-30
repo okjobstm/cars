@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon, CheckIcon } from '@heroicons/react/24/outline';
 
-export default function Select({ label, options, value, onChange, placeholder = 'Select option', className = '' }) {
+export default function Select({ label, options, value, onChange, placeholder = 'Choisir une option', className = '' }) {
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef(null);
 

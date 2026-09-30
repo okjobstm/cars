@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { HeartIcon, BoltIcon, CalendarIcon } from '@heroicons/react/24/outline'
 import { formatPrice } from '../utils/currency'
+import label from '../utils/labels'
 
 const CarCard = ({ car }) => {
     return (
@@ -18,7 +19,7 @@ const CarCard = ({ car }) => {
                 <motion.img
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.5 }}
-                    src={car.images[0] || 'https://via.placeholder.com/400x300'}
+                    src={car.images[0] || 'https://placehold.co/400x300/222/555?text=Voiture'}
                     alt={`${car.make} ${car.model}`}
                     className="w-full h-full object-cover"
                 />
@@ -29,7 +30,7 @@ const CarCard = ({ car }) => {
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
                     <span className="px-3 py-1 text-xs font-semibold bg-white text-black rounded-full uppercase tracking-wider">
-                        {car.condition}
+                        {label(car.condition)}
                     </span>
                 </div>
             </div>
@@ -41,7 +42,7 @@ const CarCard = ({ car }) => {
                         <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
                             {car.make} {car.model}
                         </h3>
-                        <p className="text-zinc-500 text-sm">{car.year} • {car.transmission}</p>
+                        <p className="text-zinc-500 text-sm">{car.year} • {label(car.transmission)}</p>
                     </div>
                     <p className="text-xl font-bold text-white">
                         {formatPrice(car.price)}
@@ -51,7 +52,7 @@ const CarCard = ({ car }) => {
                 <div className="grid grid-cols-2 gap-3 mb-6">
                     <div className="flex items-center gap-2 text-zinc-400 text-sm">
                         <BoltIcon className="w-4 h-4" />
-                        <span>{car.fuelType}</span>
+                        <span>{label(car.fuelType)}</span>
                     </div>
                     <div className="flex items-center gap-2 text-zinc-400 text-sm">
                         <CalendarIcon className="w-4 h-4" />
@@ -63,7 +64,7 @@ const CarCard = ({ car }) => {
                     to={`/cars/${car._id}`}
                     className="block w-full py-3 text-center rounded-xl border border-zinc-700 text-zinc-300 font-medium hover:bg-white hover:text-black hover:border-white transition-all duration-300"
                 >
-                    View Details
+                    Voir les détails
                 </Link>
             </div>
         </motion.div>

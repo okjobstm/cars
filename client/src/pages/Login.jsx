@@ -49,8 +49,8 @@ const Login = () => {
       >
         <div className="w-full max-w-md space-y-8">
           <div className="text-center lg:text-left">
-            <h2 className="heading-xl text-white mb-2">Welcome Back</h2>
-            <p className="text-zinc-400">Enter your details to access your account.</p>
+            <h2 className="heading-xl text-white mb-2">Bon retour</h2>
+            <p className="text-zinc-400">Saisissez vos identifiants pour acceder à votre compte.</p>
           </div>
 
           {error && (
@@ -65,7 +65,7 @@ const Login = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label htmlFor="email" className="label">Email Address</label>
+              <label htmlFor="email" className="label">Adresse e-mail</label>
               <input
                 id="email"
                 name="email"
@@ -80,7 +80,7 @@ const Login = () => {
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="password" className="label">Password</label>
+              <label htmlFor="password" className="label">Mot de passe</label>
               <div className="relative">
                 <input
                   id="password"
@@ -91,7 +91,7 @@ const Login = () => {
                   value={formData.password}
                   onChange={handleChange}
                   className="input-field pr-12"
-                  placeholder="Enter your password"
+                  placeholder="Votre mot de passe"
                 />
                 <button
                   type="button"
@@ -134,7 +134,7 @@ const Login = () => {
                 <span>Signing in...</span>
               ) : (
                 <>
-                  <span>Sign In</span>
+                  <span>Se connecter</span>
                   <ArrowRightIcon className="w-4 h-4" />
                 </>
               )}
@@ -159,12 +159,12 @@ const Login = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.5 }}
             src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?q=80&w=1920&auto=format&fit=crop"
-            alt="Luxury Car Interior"
+            alt="Interieur de voiture de luxe"
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute bottom-12 left-12 right-12 z-20">
-            <h3 className="text-3xl font-bold text-white mb-2">Experience Luxury</h3>
-            <p className="text-zinc-200 max-w-md">Discover a curated collection of the world's finest automobiles.</p>
+            <h3 className="text-3xl font-bold text-white mb-2">Vivez le luxe</h3>
+            <p className="text-zinc-200 max-w-md">Decouvrez une collection exigeante des meilleures automobiles au monde.</p>
           </div>
         </div>
       </div>

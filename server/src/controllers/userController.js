@@ -14,7 +14,7 @@ const handleError = (res, error) => {
     return res.status(400).json({ message });
   }
   console.error(error);
-  return res.status(500).json({ message: 'Server error' });
+  return res.status(500).json({ message: 'Erreur du serveur' });
 };
 
 export const registerUser = async (req, res) => {
@@ -25,7 +25,7 @@ export const registerUser = async (req, res) => {
     const userExists = await User.findOne({ $or: [{ email }, { username }] });
     if (userExists) {
       console.log(`[REGISTER] User already exists: ${email}`);
-      return res.status(400).json({ message: 'User already exists' });
+      return res.status(400).json({ message: 'Cet utilisateur existe deja' });
     }
 
     console.log(`[REGISTER] Creating user document...`);
@@ -79,7 +79,7 @@ export const loginUser = async (req, res) => {
         token: token // Still return token for mobile apps or if needed
       });
     } else {
-      res.status(401).json({ message: 'Invalid email or password' });
+      res.status(401).json({ message: 'E-mail ou mot de passe incorrect' });
     }
   } catch (error) {
     console.error(error);
@@ -104,7 +104,7 @@ export const getUserProfile = async (req, res) => {
         updatedAt: user.updatedAt
       });
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: 'Utilisateur introuvable' });
     }
   } catch (error) {
     console.error(error);
@@ -117,7 +117,7 @@ export const updateUserProfile = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ message: 'Utilisateur introuvable' });
     }
 
     // Update text fields if provided
@@ -130,7 +130,7 @@ export const updateUserProfile = async (req, res) => {
       const profileLocalPath = req.file.path.replace(/\\/g, "/");
       const profile = await uploadOnCloudinary(profileLocalPath);
       if (!profile || (!profile.url && !profile.secure_url)) {
-        return res.status(400).json({ message: "Error while uploading profile picture" });
+        return res.status(400).json({ message: 'Erreur lors de l\'envoi de la photo de profil' });
       }
       user.profilePicture = profile.secure_url || profile.url;
     }
@@ -152,7 +152,7 @@ export const updateUserProfile = async (req, res) => {
     });
   } catch (error) {
     console.error("[updateUserProfile error]", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: 'Erreur du serveur' });
   }
 };
 
@@ -178,7 +178,7 @@ export const logoutUser = async (req, res) => {
   try {
     invalidateUserCache(req.user?._id);
     clearTokenCookie(res);
-    res.json({ message: 'Logged out successfully' });
+    res.json({ message: 'Deconnexion reussie' });
   } catch (error) {
     console.error(error);
     return handleError(res, error);
@@ -195,13 +195,13 @@ export const deleteUser = async (req, res) => {
       if (user.role === 'admin') {
         const adminCount = await User.countDocuments({ role: 'admin' });
         if (adminCount <= 1) {
-          return res.status(400).json({ message: 'Cannot delete the last remaining admin' });
+          return res.status(400).json({ message: 'Impossible de supprimer le dernier administrateur' });
         }
       }
       await user.deleteOne();
-      res.json({ message: 'User removed' });
+      res.json({ message: 'Utilisateur supprime' });
     } else {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: 'Utilisateur introuvable' });
     }
   } catch (error) {
     console.error(error);
@@ -215,13 +215,13 @@ export const requestPasswordReset = async (req, res) => {
     const { email } = req.body;
 
     if (!email) {
-      return res.status(400).json({ message: 'Email is required' });
+      return res.status(400).json({ message: 'L\'adresse e-mail est obligatoire' });
     }
 
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: 'Utilisateur introuvable' });
     }
 
     const resetOtp = generateOTP();
@@ -237,7 +237,7 @@ export const requestPasswordReset = async (req, res) => {
 
     const mailOptions = new MailOptions({
       to: email,
-      subject: 'Car Dealership - Password Reset',
+      subject: 'carDekho - Reinitialisation du mot de passe',
       html: emailContent
     });
 
@@ -245,10 +245,10 @@ export const requestPasswordReset = async (req, res) => {
       await transporter.sendMail(mailOptions);
     } catch (emailError) {
       console.error('[requestPasswordReset] Email error:', emailError.message);
-      return res.status(500).json({ message: 'Failed to send reset email. Check SMTP configuration.' });
+      return res.status(500).json({ message: 'Echec de l\'envoi de l\'e-mail de reinitialisation. Verifiez la configuration SMTP.' });
     }
 
-    res.json({ message: 'Password reset OTP sent successfully' });
+    res.json({ message: 'Code de reinitialisation envoye' });
   } catch (error) {
     console.error(error);
     return handleError(res, error);
@@ -260,7 +260,7 @@ export const resetPassword = async (req, res) => {
     const { email, otp, newPassword } = req.body;
 
     if (!email || !otp || !newPassword) {
-      return res.status(400).json({ message: 'Email, OTP and new password are required' });
+      return res.status(400).json({ message: 'L\'e-mail, le code et le nouveau mot de passe sont obligatoires' });
     }
 
     const user = await User.findOne({
@@ -270,7 +270,7 @@ export const resetPassword = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(400).json({ message: 'Invalid or expired OTP' });
+      return res.status(400).json({ message: 'Code invalide ou expire' });
     }
 
     user.password = newPassword;
@@ -278,7 +278,7 @@ export const resetPassword = async (req, res) => {
     user.resetOtpExpireAt = undefined;
     await user.save();
 
-    res.json({ message: 'Password reset successfully' });
+    res.json({ message: 'Mot de passe reinitialise' });
   } catch (error) {
     console.error(error);
     return handleError(res, error);

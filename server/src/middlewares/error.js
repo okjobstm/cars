@@ -9,7 +9,7 @@ export const notFound = (req, res, next) => {
 export const errorHandler = (err, req, res, next) => {
   // Multer file upload errors
   if (err && err.code === 'LIMIT_FILE_SIZE') {
-    return res.status(400).json({ message: 'File too large. Max 5MB.' });
+    return res.status(400).json({ message: 'Fichier trop volumineux. 5 Mo maximum.' });
   }
   if (err && err.name === 'MulterError') {
     return res.status(400).json({ message: err.message || 'Upload error' });

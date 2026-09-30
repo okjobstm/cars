@@ -25,8 +25,8 @@ const Navbar = () => {
   }
 
   const navLinks = [
-    { name: 'Home', path: '/', icon: HomeIcon },
-    { name: 'Browse Cars', path: '/cars', icon: MagnifyingGlassIcon },
+    { name: 'Accueil', path: '/', icon: HomeIcon },
+    { name: 'Voir les voitures', path: '/cars', icon: MagnifyingGlassIcon },
   ]
 
   return (
@@ -73,7 +73,7 @@ const Navbar = () => {
                     <Link
                       to="/admin"
                       className="p-2 rounded-full text-zinc-400 hover:text-amber-400 hover:bg-zinc-800 transition-colors"
-                      title="Admin Dashboard"
+                      title="Tableau de bord admin"
                     >
                       <CogIcon className="h-5 w-5" />
                     </Link>
@@ -91,7 +91,7 @@ const Navbar = () => {
                   <button
                     onClick={handleLogout}
                     className="p-2 rounded-full text-zinc-400 hover:text-red-400 hover:bg-zinc-800 transition-colors"
-                    title="Logout"
+                    title="Déconnexion"
                   >
                     <ArrowRightStartOnRectangleIcon className="h-5 w-5" />
                   </button>
@@ -102,13 +102,13 @@ const Navbar = () => {
                     to="/login"
                     className="px-5 py-2.5 text-sm font-bold bg-white text-black rounded-full hover:bg-zinc-200 transition-all shadow-lg shadow-white/10"
                   >
-                    Login
+                    Connexion
                   </Link>
                   <Link
                     to="/register"
                     className="rounded-full bg-white text-black px-6 py-2.5 text-sm font-bold shadow-lg shadow-white/10 transition-all hover:bg-zinc-200 hover:scale-105 active:scale-95"
                   >
-                    Get Started
+                    Commencer
                   </Link>
                 </>
               )}
@@ -119,7 +119,7 @@ const Navbar = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="rounded-full p-2 text-zinc-400 hover:bg-zinc-800 hover:text-white md:hidden"
             >
-              <span className="sr-only">Open menu</span>
+              <span className="sr-only">Ouvrir le menu</span>
               {isOpen ? (
                 <XMarkIcon className="h-6 w-6" />
               ) : (
@@ -160,7 +160,7 @@ const Navbar = () => {
               {user ? (
                 <>
                   <div className="px-3 py-2">
-                    <p className="text-xs font-medium text-slate-500 uppercase">Account</p>
+                    <p className="text-xs font-medium text-slate-500 uppercase">Compte</p>
                     <div className="mt-3 flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-800 border border-slate-700">
                         <UserIcon className="h-5 w-5 text-slate-400" />
@@ -179,7 +179,7 @@ const Navbar = () => {
                       className="flex items-center gap-3 rounded-lg px-3 py-2 text-base font-medium text-slate-400 hover:bg-slate-800 hover:text-amber-400"
                     >
                       <CogIcon className="h-5 w-5" />
-                      Admin Dashboard
+                      Tableau de bord admin
                     </Link>
                   )}
 
@@ -188,7 +188,7 @@ const Navbar = () => {
                     className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-base font-medium text-slate-400 hover:bg-slate-800 hover:text-red-400"
                   >
                     <ArrowRightStartOnRectangleIcon className="h-5 w-5" />
-                    Logout
+                    Déconnexion
                   </button>
                 </>
               ) : (
@@ -198,14 +198,14 @@ const Navbar = () => {
                     onClick={() => setIsOpen(false)}
                     className="flex w-full items-center justify-center rounded-lg border border-slate-700 bg-slate-800 px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-slate-700"
                   >
-                    Log In
+                    Se connecter
                   </Link>
                   <Link
                     to="/register"
                     onClick={() => setIsOpen(false)}
                     className="flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white shadow-lg shadow-blue-500/20 transition-all hover:bg-blue-500"
                   >
-                    Get Started
+                    Commencer
                   </Link>
                 </div>
               )}

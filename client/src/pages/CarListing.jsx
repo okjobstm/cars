@@ -120,9 +120,9 @@ const CarListing = () => {
       {/* Header & Controls */}
       <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
         <div>
-          <h1 className="text-4xl font-bold text-white mb-2">Inventory</h1>
+          <h1 className="text-4xl font-bold text-white mb-2">Stock</h1>
           <p className="text-zinc-400">
-            Showing {cars.length} of {pagination.totalCars} premium vehicles
+            {cars.length} véhicule(s) sur {pagination.totalCars} au total
           </p>
         </div>
 
@@ -131,7 +131,7 @@ const CarListing = () => {
           <div className="relative group">
             <input
               type="text"
-              placeholder="Search collection..."
+              placeholder="Rechercher un véhicule..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
@@ -161,7 +161,7 @@ const CarListing = () => {
               }`}
           >
             <AdjustmentsHorizontalIcon className="w-5 h-5" />
-            <span>Filters</span>
+            <span>Filtres</span>
           </button>
         </div>
       </div>
@@ -178,25 +178,25 @@ const CarListing = () => {
           >
             <div className="bg-zinc-900/50 border border-zinc-800 rounded-3xl p-8 backdrop-blur-sm">
               <div className="flex justify-between items-center mb-6">
-                <h3 className="text-lg font-semibold text-white">Refine Search</h3>
+                <h3 className="text-lg font-semibold text-white">Affiner la recherche</h3>
                 <button
                   onClick={clearFilters}
                   className="text-sm text-zinc-400 hover:text-white transition-colors hover:underline"
                 >
-                  Reset All
+                  Tout réinitialiser
                 </button>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-wider text-zinc-500 font-semibold">Make</label>
+                  <label className="text-xs uppercase tracking-wider text-zinc-500 font-semibold">Marque</label>
                   <input
                     type="text"
                     name="make"
                     value={filters.make}
                     onChange={handleFilterChange}
                     className="input-field rounded-full"
-                    placeholder="e.g. Porsche"
+                    placeholder="ex. Porsche"
                   />
                 </div>
 
@@ -224,32 +224,32 @@ const CarListing = () => {
 
                 <div className="space-y-2">
                   <Select
-                    label="Body Type"
+                    label="Carrosserie"
                     value={filters.bodyType}
                     onChange={(val) => handleSelectChange('bodyType', val)}
-                    placeholder="All Types"
+                    placeholder="Tous les types"
                     options={[
-                      { value: '', label: 'All Types' },
-                      { value: 'Sedan', label: 'Sedan' },
+                      { value: '', label: 'Tous les types' },
+                      { value: 'Sedan', label: 'Berline' },
                       { value: 'SUV', label: 'SUV' },
-                      { value: 'Coupe', label: 'Coupe' },
-                      { value: 'Convertible', label: 'Convertible' },
-                      { value: 'Sports', label: 'Sports' }
+                      { value: 'Coupe', label: 'Coupé' },
+                      { value: 'Convertible', label: 'Cabriolet' },
+                      { value: 'Sports', label: 'Sportive' }
                     ]}
                   />
                 </div>
 
                 <div className="space-y-2">
                   <Select
-                    label="Condition"
+                    label="État"
                     value={filters.condition}
                     onChange={(val) => handleSelectChange('condition', val)}
-                    placeholder="All Conditions"
+                    placeholder="Tous les états"
                     options={[
-                      { value: '', label: 'All Conditions' },
+                      { value: '', label: 'Tous les états' },
                       { value: 'Excellent', label: 'Excellent' },
-                      { value: 'Good', label: 'Good' },
-                      { value: 'Like New', label: 'Like New' }
+                      { value: 'Good', label: 'Bon' },
+                      { value: 'Like New', label: 'Comme neuf' }
                     ]}
                   />
                 </div>
@@ -281,9 +281,9 @@ const CarListing = () => {
       ) : (
         <div className="py-32 text-center">
           <MagnifyingGlassIcon className="w-16 h-16 text-zinc-800 mx-auto mb-6" />
-          <h3 className="text-2xl font-bold text-white mb-2">No vehicles found</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">Aucun véhicule trouvé</h3>
           <p className="text-zinc-500">
-            Your search did not match any vehicles. Try different keywords or filters.
+            Votre recherche ne correspond à aucun véhicule. Essayez d'autres mots-clés ou filtres.
           </p>
           <button
             onClick={clearFilters}
@@ -307,7 +307,7 @@ const CarListing = () => {
             </button>
 
             <div className="px-6 py-2 bg-zinc-900 border border-zinc-800 rounded-full font-medium text-zinc-300">
-              Page {pagination.currentPage} of {pagination.totalPages}
+              Page {pagination.currentPage} sur {pagination.totalPages}
             </div>
 
             <button

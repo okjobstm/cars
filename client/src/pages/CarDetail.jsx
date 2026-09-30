@@ -17,6 +17,7 @@ import {
   TruckIcon
 } from '@heroicons/react/24/outline'
 import { formatPrice } from '../utils/currency'
+import label from '../utils/labels'
 
 const CarDetail = () => {
   const { id } = useParams()
@@ -36,7 +37,7 @@ const CarDetail = () => {
       const response = await axios.get(`/api/cars/${id}`)
       setCar(response.data)
     } catch (error) {
-      setError('Failed to load car details')
+      setError('Échec du chargement des détails du véhicule')
       console.error('Error fetching car details:', error)
     } finally {
       setLoading(false)
@@ -57,9 +58,9 @@ const CarDetail = () => {
         <div className="w-20 h-20 bg-slate-800 rounded-full flex items-center justify-center mb-6">
           <ShieldCheckIcon className="w-10 h-10 text-slate-500" />
         </div>
-        <p className="text-xl text-slate-300 mb-6">{error || 'Vehicle not found'}</p>
+        <p className="text-xl text-slate-300 mb-6">{error || 'Véhicule introuvable'}</p>
         <Link to="/cars" className="btn-primary">
-          Return to Inventory
+          Retour au stock
         </Link>
       </div>
     )
@@ -79,7 +80,7 @@ const CarDetail = () => {
             className="inline-flex items-center space-x-2 text-slate-400 hover:text-white transition-colors mb-4"
           >
             <ArrowLeftIcon className="w-4 h-4" />
-            <span>Back to Inventory</span>
+            <span>Retour au stock</span>
           </Link>
           <h1 className="heading-xl text-3xl md:text-5xl">
             {car.make} <span className="text-slate-400 font-normal">{car.model}</span>
@@ -96,7 +97,7 @@ const CarDetail = () => {
           {car.condition === 'Excellent' && (
             <div className="inline-flex items-center gap-1 bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-full text-sm mt-2 border border-emerald-500/20">
               <CheckBadgeIcon className="w-4 h-4" />
-              <span>Certified Excellent Condition</span>
+              <span>État excellent certifie</span>
             </div>
           )}
         </div>
@@ -119,12 +120,12 @@ const CarDetail = () => {
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   onError={(e) => {
                     e.target.onerror = null;
-                    e.target.src = 'https://placehold.co/1200x800/1e293b/94a3b8?text=No+Image';
+                    e.target.src = 'https://placehold.co/1200x800/1e293b/94a3b8?text=Aucune+image';
                   }}
                 />
               ) : (
                 <div className="flex items-center justify-center h-full text-slate-500">
-                  No Image Available
+                  Aucune image disponible
                 </div>
               )}
             </div>
@@ -154,12 +155,12 @@ const CarDetail = () => {
             className="grid grid-cols-2 md:grid-cols-4 gap-4"
           >
             {[
-              { icon: CalendarIcon, label: 'Year', value: car.year },
-              { icon: ChartBarIcon, label: 'Mileage', value: `${car.mileage.toLocaleString()} mi` },
-              { icon: BeakerIcon, label: 'Fuel', value: car.fuelType },
-              { icon: CogIcon, label: 'Transmission', value: car.transmission },
-              { icon: TruckIcon, label: 'Body', value: car.bodyType },
-              { icon: ShieldCheckIcon, label: 'Condition', value: car.condition },
+              { icon: CalendarIcon, label: 'Année', value: car.year },
+              { icon: ChartBarIcon, label: 'Kilométrage', value: `${car.mileage.toLocaleString()} km` },
+              { icon: BeakerIcon, label: 'Carburant', value: label(car.fuelType) },
+              { icon: CogIcon, label: 'Boite', value: label(car.transmission) },
+              { icon: TruckIcon, label: 'Carrosserie', value: label(car.bodyType) },
+              { icon: ShieldCheckIcon, label: 'État', value: label(car.condition) },
             ].map((spec, i) => (
               <div key={i} className="glass-card p-4 flex flex-col items-center justify-center text-center group hover:bg-slate-800/60 transition-colors">
                 <spec.icon className="w-8 h-8 text-blue-500 mb-2 group-hover:scale-110 transition-transform" />
@@ -176,7 +177,7 @@ const CarDetail = () => {
             transition={{ delay: 0.3 }}
             className="glass-card p-8"
           >
-            <h2 className="heading-lg mb-6 text-2xl">Vehicle Overview</h2>
+            <h2 className="heading-lg mb-6 text-2xl">Aperçu du véhicule</h2>
             <p className="text-slate-300 leading-relaxed text-lg">
               {car.description}
             </p>
@@ -190,7 +191,7 @@ const CarDetail = () => {
               transition={{ delay: 0.4 }}
               className="glass-card p-8"
             >
-              <h2 className="heading-lg mb-6 text-2xl">Premium Features</h2>
+              <h2 className="heading-lg mb-6 text-2xl">Équipements premium</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {car.features.map((feature, index) => (
                   <div key={index} className="flex items-center gap-3 bg-slate-800/50 p-3 rounded-xl border border-slate-700/50">
@@ -213,17 +214,17 @@ const CarDetail = () => {
             transition={{ delay: 0.5 }}
             className="glass-card p-6 sticky top-24"
           >
-            <h3 className="heading-lg text-xl mb-6">Interested in this vehicle?</h3>
+            <h3 className="heading-lg text-xl mb-6">Ce véhicule vous intéresse !</h3>
 
             <div className="space-y-4">
               <button className="btn-primary w-full flex items-center justify-center gap-2 py-4 text-lg">
                 <EnvelopeIcon className="w-5 h-5" />
-                Inquire Now
+                Nous contacter
               </button>
 
               <button className="w-full py-4 rounded-xl border border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white transition-all flex items-center justify-center gap-2 font-medium">
                 <PhoneIcon className="w-5 h-5" />
-                Schedule Test Drive
+                Réserver un essai
               </button>
             </div>
 
@@ -231,18 +232,18 @@ const CarDetail = () => {
               <div className="flex items-center gap-4 mb-4">
                 <img
                   src="https://ui-avatars.com/api/?name=Premium+Motors&background=3b82f6&color=fff"
-                  alt="Dealer"
+                  alt="Vendeur"
                   className="w-12 h-12 rounded-full"
                 />
                 <div>
                   <h4 className="font-bold text-white">Premium Motors</h4>
-                  <p className="text-slate-400 text-sm">Verified Dealer</p>
+                  <p className="text-slate-400 text-sm">Vendeur vérifié</p>
                 </div>
               </div>
               <div className="space-y-2 text-sm text-slate-400">
-                <p>✓ 150-Point Inspection</p>
-                <p>✓ 12-Month Warranty</p>
-                <p>✓ Financing Available</p>
+                <p>✓ Inspection 150 points</p>
+                <p>✓ Garantie 12 mois</p>
+                <p>✓ Financement disponible</p>
               </div>
             </div>
           </motion.div>

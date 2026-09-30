@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
 import { XMarkIcon, CloudArrowUpIcon, PhotoIcon } from '@heroicons/react/24/outline';
+import label from '../utils/labels';
 
 const initialCarForm = {
   make: '',
@@ -21,6 +22,19 @@ const initialCarForm = {
   condition: 'Excellent',
   location: '',
   contactNumber: ''
+};
+
+const REQUIRED_LABELS = {
+  make: 'Marque',
+  model: 'Modèle',
+  year: 'Année',
+  price: 'Prix',
+  mileage: 'Kilométrage',
+  color: 'Couleur',
+  engineSize: 'Cylindrée',
+  description: 'Description',
+  location: 'Localisation',
+  contactNumber: 'Numéro de contact'
 };
 
 export default function AddCarModal({ open, onClose, onCreated }) {
@@ -44,14 +58,14 @@ export default function AddCarModal({ open, onClose, onCreated }) {
     setCarSuccess('');
 
     if (!carImages.length) {
-      setCarError('Please select at least one image.');
+      setCarError('Veuillez sélectionner au moins une image.');
       return;
     }
 
     const required = ['make', 'model', 'year', 'price', 'mileage', 'color', 'engineSize', 'description', 'location', 'contactNumber'];
     for (const field of required) {
       if (!carForm[field]) {
-        setCarError(`Field ${field} is required.`);
+        setCarError(`Le champ « ${REQUIRED_LABELS[field]} » est obligatoire.`);
         return;
       }
     }
@@ -71,12 +85,12 @@ export default function AddCarModal({ open, onClose, onCreated }) {
       const res = await axios.post('/api/cars', fd, { headers: { 'Content-Type': 'multipart/form-data' } });
 
       if (res.data?._id) {
-        setCarSuccess('Car created successfully.');
+        setCarSuccess('Véhicule publié avec succès.');
         onCreated?.(res.data);
         setTimeout(() => { resetAndClose(); }, 1000);
       }
     } catch (err) {
-      setCarError(err.response?.data?.message || 'Failed to create car');
+      setCarError(err.response?.data?.message || 'Échec de la création du véhicule');
     } finally {
       setCarSubmitting(false);
     }
@@ -103,8 +117,8 @@ export default function AddCarModal({ open, onClose, onCreated }) {
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-white/10">
               <div>
-                <h3 className="heading-md mb-0">Add New Vehicle</h3>
-                <p className="text-sm text-zinc-400">Fill in the details to create a new key listing</p>
+                <h3 className="heading-md mb-0">Ajouter un véhicule</h3>
+                <p className="text-sm text-zinc-400">Renseignez les informations pour publier un véhicule</p>
               </div>
               <button
                 onClick={resetAndClose}
@@ -133,27 +147,27 @@ export default function AddCarModal({ open, onClose, onCreated }) {
                 {/* Left Column: Basic Info */}
                 <div className="space-y-6">
                   <div className="pb-2 border-b border-white/5">
-                    <h4 className="text-xs uppercase tracking-wider text-zinc-500 font-bold">Vehicle Details</h4>
+                    <h4 className="text-xs uppercase tracking-wider text-zinc-500 font-bold">Informations véhicule</h4>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="label">Make</label>
+                      <label className="label">Marque</label>
                       <input className="input-field" value={carForm.make} onChange={e => setCarForm({ ...carForm, make: e.target.value })} placeholder="Toyota" required />
                     </div>
                     <div>
-                      <label className="label">Model</label>
+                      <label className="label">Modèle</label>
                       <input className="input-field" value={carForm.model} onChange={e => setCarForm({ ...carForm, model: e.target.value })} placeholder="Camry" required />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="label">Year</label>
+                      <label className="label">Année</label>
                       <input type="number" className="input-field" value={carForm.year} onChange={e => setCarForm({ ...carForm, year: e.target.value })} placeholder="2023" required />
                     </div>
                     <div>
-                      <label className="label">Price</label>
+                      <label className="label">Prix</label>
                       <div className="relative">
                         <span className="absolute left-4 top-3.5 text-zinc-500">FCFA</span>
                         <input type="number" className="input-field pl-16" value={carForm.price} onChange={e => setCarForm({ ...carForm, price: e.target.value })} placeholder="2500000" required />
@@ -163,21 +177,21 @@ export default function AddCarModal({ open, onClose, onCreated }) {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="label">Mileage (km)</label>
+                      <label className="label">Kilométrage (km)</label>
                       <input type="number" className="input-field" value={carForm.mileage} onChange={e => setCarForm({ ...carForm, mileage: e.target.value })} placeholder="15000" required />
                     </div>
                     <div>
-                      <label className="label">Color</label>
-                      <input className="input-field" value={carForm.color} onChange={e => setCarForm({ ...carForm, color: e.target.value })} placeholder="Midnight Black" required />
+                      <label className="label">Couleur</label>
+                      <input className="input-field" value={carForm.color} onChange={e => setCarForm({ ...carForm, color: e.target.value })} placeholder="Noir nuit" required />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="label">Fuel Type</label>
+                      <label className="label">Carburant</label>
                       <div className="relative">
                         <select className="input-field appearance-none" value={carForm.fuelType} onChange={e => setCarForm({ ...carForm, fuelType: e.target.value })}>
-                          {['Petrol', 'Diesel', 'Electric', 'Hybrid', 'LPG', 'CNG'].map(f => <option key={f} value={f}>{f}</option>)}
+                          {['Petrol', 'Diesel', 'Electric', 'Hybrid', 'LPG', 'CNG'].map(f => <option key={f} value={f}>{label(f)}</option>)}
                         </select>
                         <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-zinc-500">
                           <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
@@ -185,10 +199,10 @@ export default function AddCarModal({ open, onClose, onCreated }) {
                       </div>
                     </div>
                     <div>
-                      <label className="label">Transmission</label>
+                      <label className="label">Boîte de vitesses</label>
                       <div className="relative">
                         <select className="input-field appearance-none" value={carForm.transmission} onChange={e => setCarForm({ ...carForm, transmission: e.target.value })}>
-                          {['Manual', 'Automatic', 'CVT', 'Semi-Automatic'].map(t => <option key={t} value={t}>{t}</option>)}
+                          {['Manual', 'Automatic', 'CVT', 'Semi-Automatic'].map(t => <option key={t} value={t}>{label(t)}</option>)}
                         </select>
                         <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-zinc-500">
                           <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
@@ -199,10 +213,10 @@ export default function AddCarModal({ open, onClose, onCreated }) {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="label">Body Type</label>
+                      <label className="label">Carrosserie</label>
                       <div className="relative">
                         <select className="input-field appearance-none" value={carForm.bodyType} onChange={e => setCarForm({ ...carForm, bodyType: e.target.value })}>
-                          {['Sedan', 'SUV', 'Hatchback', 'Coupe', 'Convertible', 'Wagon', 'Pickup', 'Van'].map(b => <option key={b} value={b}>{b}</option>)}
+                          {['Sedan', 'SUV', 'Hatchback', 'Coupe', 'Convertible', 'Wagon', 'Pickup', 'Van'].map(b => <option key={b} value={b}>{label(b)}</option>)}
                         </select>
                         <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-zinc-500">
                           <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
@@ -210,10 +224,10 @@ export default function AddCarModal({ open, onClose, onCreated }) {
                       </div>
                     </div>
                     <div>
-                      <label className="label">Condition</label>
+                      <label className="label">État</label>
                       <div className="relative">
                         <select className="input-field appearance-none" value={carForm.condition} onChange={e => setCarForm({ ...carForm, condition: e.target.value })}>
-                          {['Excellent', 'Good', 'Fair', 'Poor'].map(c => <option key={c} value={c}>{c}</option>)}
+                          {['Excellent', 'Good', 'Fair', 'Poor'].map(c => <option key={c} value={c}>{label(c)}</option>)}
                         </select>
                         <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-zinc-500">
                           <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" /></svg>
@@ -223,7 +237,7 @@ export default function AddCarModal({ open, onClose, onCreated }) {
                   </div>
 
                   <div>
-                    <label className="label">Engine Size</label>
+                    <label className="label">Cylindrée</label>
                     <input className="input-field" value={carForm.engineSize} onChange={e => setCarForm({ ...carForm, engineSize: e.target.value })} placeholder="2.5L 4-Cylinder" required />
                   </div>
                 </div>
@@ -231,42 +245,42 @@ export default function AddCarModal({ open, onClose, onCreated }) {
                 {/* Right Column: Additional Info & Images */}
                 <div className="space-y-6">
                   <div className="pb-2 border-b border-white/5">
-                    <h4 className="text-xs uppercase tracking-wider text-zinc-500 font-bold">Specs & Images</h4>
+                    <h4 className="text-xs uppercase tracking-wider text-zinc-500 font-bold">Spécifications et images</h4>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="label">Doors</label>
+                      <label className="label">Portes</label>
                       <input type="number" className="input-field" value={carForm.doors} onChange={e => setCarForm({ ...carForm, doors: e.target.value })} required />
                     </div>
                     <div>
-                      <label className="label">Seats</label>
+                      <label className="label">Places</label>
                       <input type="number" className="input-field" value={carForm.seats} onChange={e => setCarForm({ ...carForm, seats: e.target.value })} required />
                     </div>
                   </div>
 
                   <div>
-                    <label className="label">Location</label>
-                    <input className="input-field" value={carForm.location} onChange={e => setCarForm({ ...carForm, location: e.target.value })} placeholder="Mumbai, MH" required />
+                    <label className="label">Localisation</label>
+                    <input className="input-field" value={carForm.location} onChange={e => setCarForm({ ...carForm, location: e.target.value })} placeholder="Douala, Littoral" required />
                   </div>
 
                   <div>
-                    <label className="label">Contact Number</label>
-                    <input className="input-field" value={carForm.contactNumber} onChange={e => setCarForm({ ...carForm, contactNumber: e.target.value })} placeholder="+91 98765 43210" required />
+                    <label className="label">Numéro de contact</label>
+                    <input className="input-field" value={carForm.contactNumber} onChange={e => setCarForm({ ...carForm, contactNumber: e.target.value })} placeholder="+237 6 99 99 99 99" required />
                   </div>
 
                   <div>
-                    <label className="label">Features</label>
-                    <input className="input-field" value={carForm.features} onChange={e => setCarForm({ ...carForm, features: e.target.value })} placeholder="Bluetooth, Sunroof, Backup Camera (comma separated)" />
+                    <label className="label">Equipements</label>
+                    <input className="input-field" value={carForm.features} onChange={e => setCarForm({ ...carForm, features: e.target.value })} placeholder="Bluetooth, toit ouvrant, camera de recul (separees par des virgules)" />
                   </div>
 
                   <div>
                     <label className="label">Description</label>
-                    <textarea className="input-field min-h-[100px]" value={carForm.description} onChange={e => setCarForm({ ...carForm, description: e.target.value })} placeholder="Detailed description of the vehicle..." required />
+                    <textarea className="input-field min-h-[100px]" value={carForm.description} onChange={e => setCarForm({ ...carForm, description: e.target.value })} placeholder="Description détaillée du véhicule..." required />
                   </div>
 
                   <div>
-                    <label className="label mb-3">Images (Max 5)</label>
+                    <label className="label mb-3">Images (5 max)</label>
                     <div className="border border-dashed border-zinc-700 bg-zinc-900/30 rounded-2xl p-6 hover:bg-zinc-800/50 hover:border-zinc-500 transition-all text-center cursor-pointer relative group">
                       <input
                         type="file"
@@ -276,7 +290,7 @@ export default function AddCarModal({ open, onClose, onCreated }) {
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                       />
                       <PhotoIcon className="w-10 h-10 text-zinc-600 mx-auto mb-3 group-hover:scale-110 group-hover:text-zinc-400 transition-all" />
-                      <p className="text-sm text-zinc-400">Click to upload or drag and drop</p>
+                      <p className="text-sm text-zinc-400">Cliquez pour envoyer ou glissez-deposez</p>
                       <p className="text-xs text-zinc-600 mt-1">SVG, PNG, JPG or GIF</p>
                     </div>
 
@@ -312,12 +326,12 @@ export default function AddCarModal({ open, onClose, onCreated }) {
                 {carSubmitting ? (
                   <>
                     <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                    <span>Saving...</span>
+                    <span>Enregistrement...</span>
                   </>
                 ) : (
                   <>
                     <CloudArrowUpIcon className="w-5 h-5" />
-                    <span>Create Listing</span>
+                    <span>Publier</span>
                   </>
                 )}
               </button>

@@ -35,7 +35,7 @@ export const protect = async (req, res, next) => {
   }
 
   if (!token) {
-    return res.status(401).json({ message: 'Not authorized, no token' });
+    return res.status(401).json({ message: 'Non autorise : aucun jeton fourni' });
   }
 
   try {
@@ -49,14 +49,14 @@ export const protect = async (req, res, next) => {
     }
 
     if (!user) {
-      return res.status(401).json({ message: 'Not authorized, user not found' });
+      return res.status(401).json({ message: 'Non autorise : utilisateur introuvable' });
     }
 
     req.user = user;
     next();
   } catch (error) {
     console.error(error);
-    res.status(401).json({ message: 'Not authorized, token failed' });
+    res.status(401).json({ message: 'Non autorise : jeton invalide' });
   }
 };
 
@@ -65,7 +65,7 @@ export const admin = (req, res, next) => {
   if (req.user && req.user.role === 'admin') {
     next();
   } else {
-    res.status(401).json({ message: 'Not authorized as an admin' });
+    res.status(401).json({ message: 'Non autorise : acces administrateur requis' });
   }
 };
 

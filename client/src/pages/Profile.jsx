@@ -41,9 +41,9 @@ const Profile = () => {
       formDataToSend.append('email', formData.email)
       if (formData.profilePicture) formDataToSend.append('profilePicture', formData.profilePicture)
       const result = await updateProfile(formDataToSend)
-      setMessage(result.success ? 'Profile updated successfully!' : result.message || 'Failed to update profile')
+      setMessage(result.success ? 'Profil mis à jour avec succès !' : result.message || 'Échec de la mise à jour du profil')
     } catch {
-      setMessage('An error occurred while updating profile')
+      setMessage('Une erreur est survenue lors de la mise à jour du profil')
     } finally {
       setLoading(false)
     }
@@ -52,7 +52,7 @@ const Profile = () => {
   if (!user) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-300">Please log in to view your profile.</p>
+        <p className="text-gray-300">Connectez-vous pour voir votre profil.</p>
       </div>
     )
   }
@@ -61,8 +61,8 @@ const Profile = () => {
     <div className="max-w-2xl mx-auto space-y-8">
       {/* Header */}
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-white">Profile</h1>
-        <p className="text-gray-400 mt-2">Manage your account information</p>
+        <h1 className="text-3xl font-bold text-white">Profil</h1>
+        <p className="text-gray-400 mt-2">Gérez les informations de votre compte</p>
       </div>
 
       {/* Profile Picture */}
@@ -70,7 +70,7 @@ const Profile = () => {
         <div className="relative inline-block">
           <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-700 mx-auto">
             {previewImage ? (
-              <img src={previewImage} alt="Profile" className="w-full h-full object-cover" />
+              <img src={previewImage} alt="Profil" className="w-full h-full object-cover" />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
                 <UserIcon className="w-16 h-16 text-gray-400" />
@@ -87,7 +87,7 @@ const Profile = () => {
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
         {message && (
-          <div className={`p-4 rounded-lg ${message.includes('successfully')
+          <div className={`p-4 rounded-lg ${message.includes('succès')
               ? 'bg-green-900 border border-green-600 text-green-300'
               : 'bg-red-900 border border-red-600 text-red-300'
             }`}>
@@ -97,23 +97,23 @@ const Profile = () => {
 
         <div>
           <label htmlFor="username" className="block text-sm font-medium text-gray-300 mb-2">
-            Username
+            Nom d'utilisateur
           </label>
           <input
             id="username" name="username" type="text" required
             value={formData.username} onChange={handleChange}
-            className="input-field" placeholder="Enter your username"
+            className="input-field" placeholder="Votre nom d'utilisateur"
           />
         </div>
 
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
-            Email
+            Adresse e-mail
           </label>
           <input
             id="email" name="email" type="email" required
             value={formData.email} onChange={handleChange}
-            className="input-field" placeholder="Enter your email"
+            className="input-field" placeholder="Votre adresse e-mail"
           />
         </div>
 
@@ -128,7 +128,7 @@ const Profile = () => {
           >
             {user.role || 'user'}
           </div>
-          <p className="text-sm text-gray-500 mt-1">Role cannot be changed</p>
+          <p className="text-sm text-gray-500 mt-1">Le role ne peut pas etre modifie</p>
         </div>
 
         <button
@@ -136,24 +136,24 @@ const Profile = () => {
           disabled={loading}
           className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {loading ? 'Updating...' : 'Update Profile'}
+          {loading ? 'Mise a jour...' : 'Mettre a jour'}
         </button>
       </form>
 
       {/* Account Info */}
       <div className="card p-6">
-        <h3 className="text-lg font-semibold text-white mb-4">Account Information</h3>
+        <h3 className="text-lg font-semibold text-white mb-4">Informations du compte</h3>
         <div className="space-y-3 text-sm">
           <div className="flex justify-between">
-            <span className="text-gray-400">Member since:</span>
+            <span className="text-gray-400">Membre depuis :</span>
             <span className="text-gray-200">
-              {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
+              {user.createdAt ? new Date(user.createdAt).toLocaleDateString('fr-FR') : 'N/A'}
             </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-400">Last updated:</span>
+            <span className="text-gray-400">Derniere mise a jour :</span>
             <span className="text-gray-200">
-              {user.updatedAt ? new Date(user.updatedAt).toLocaleDateString() : 'N/A'}
+              {user.updatedAt ? new Date(user.updatedAt).toLocaleDateString('fr-FR') : 'N/A'}
             </span>
           </div>
         </div>

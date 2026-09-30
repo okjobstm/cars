@@ -6,7 +6,7 @@ const sendEmail = async ({ to, subject, html }) => {
     if (!BREVO_API_KEY) throw new Error('BREVO_API_KEY is not configured.');
 
     const payload = {
-        sender: { name: 'Car Dealership', email: SENDER_EMAIL },
+        sender: { name: 'carDekho', email: SENDER_EMAIL },
         to: [{ email: to }],
         subject,
         htmlContent: html,
@@ -38,8 +38,8 @@ class MailOptions {
     constructor({ to, text, html, from = SENDER_EMAIL, subject }) {
         this.from = from;
         this.to = to;
-        this.subject = subject || `Car Dealership Notification`;
-        this.text = text || 'Welcome to Car Dealership';
+        this.subject = subject || 'Notification carDekho';
+        this.text = text || 'Bienvenue sur carDekho';
         this.html = html || '';
     }
 }
@@ -55,7 +55,7 @@ const PASSWORD_RESET_TEMPLATE = `
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Password Reset</title>
+    <title>Réinitialisation du mot de passe</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -97,17 +97,17 @@ const PASSWORD_RESET_TEMPLATE = `
 <body>
     <div class="container">
         <div class="header">
-            <h1>Password Reset</h1>
+            <h1>Réinitialisation du mot de passe</h1>
         </div>
-        <p>Hello,</p>
-        <p>We received a request to reset your password for your Car Dealership account ({{email}}). Please use the following OTP to reset your password:</p>
+        <p>Bonjour,</p>
+        <p>Nous avons reçu une demande de réinitialisation du mot de passe de votre compte carDekho ({{email}}). Utilisez le code ci-dessous pour choisir un nouveau mot de passe :</p>
         <p style="text-align: center;">
             <span class="highlight">{{otp}}</span>
         </p>
-        <p>This OTP will expire in 15 minutes. If you did not request this password reset, please contact support immediately.</p>
+        <p>Ce code expire dans 15 minutes. Si vous n'êtes pas à l'origine de cette demande, contactez immédiatement le support.</p>
         <div class="footer">
-            <p>&copy; 2025 Car Dealership. All rights reserved.</p>
-            <p>This is an automated message, please do not reply.</p>
+            <p>&copy; 2025 carDekho. Tous droits réservés.</p>
+            <p>Message automatique, merci de ne pas y répondre.</p>
         </div>
     </div>
 </body>

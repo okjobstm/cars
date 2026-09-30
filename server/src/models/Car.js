@@ -3,74 +3,74 @@ import mongoose from 'mongoose';
 const carSchema = new mongoose.Schema({
   make: {
     type: String,
-    required: [true, 'Car make is required'],
+    required: [true, 'La marque est obligatoire'],
     trim: true
   },
   model: {
     type: String,
-    required: [true, 'Car model is required'],
+    required: [true, 'Le modele est obligatoire'],
     trim: true
   },
   year: {
     type: Number,
-    required: [true, 'Car year is required'],
-    min: [1900, 'Year must be after 1900'],
-    max: [new Date().getFullYear() + 1, 'Year cannot be in the future']
+    required: [true, 'L\'annee est obligatoire'],
+    min: [1900, 'L\'annee doit etre posterieure a 1900'],
+    max: [new Date().getFullYear() + 1, 'L\'annee ne peut pas etre dans le futur']
   },
   price: {
     type: Number,
-    required: [true, 'Car price is required'],
-    min: [0, 'Price cannot be negative']
+    required: [true, 'Le prix est obligatoire'],
+    min: [0, 'Le prix ne peut pas etre negatif']
   },
   mileage: {
     type: Number,
-    required: [true, 'Car mileage is required'],
-    min: [0, 'Mileage cannot be negative']
+    required: [true, 'Le kilometrage est obligatoire'],
+    min: [0, 'Le kilometrage ne peut pas etre negatif']
   },
   color: {
     type: String,
-    required: [true, 'Car color is required'],
+    required: [true, 'La couleur est obligatoire'],
     trim: true
   },
   fuelType: {
     type: String,
-    required: [true, 'Fuel type is required'],
+    required: [true, 'Le type de carburant est obligatoire'],
     enum: ['Petrol', 'Diesel', 'Electric', 'Hybrid', 'LPG', 'CNG']
   },
   transmission: {
     type: String,
-    required: [true, 'Transmission type is required'],
+    required: [true, 'Le type de boite de vitesses est obligatoire'],
     enum: ['Manual', 'Automatic', 'CVT', 'Semi-Automatic']
   },
   engineSize: {
     type: String,
-    required: [true, 'Engine size is required']
+    required: [true, 'La cylindree est obligatoire']
   },
   bodyType: {
     type: String,
-    required: [true, 'Body type is required'],
+    required: [true, 'La carrosserie est obligatoire'],
     enum: ['Sedan', 'SUV', 'Hatchback', 'Coupe', 'Convertible', 'Wagon', 'Pickup', 'Van']
   },
   doors: {
     type: Number,
-    required: [true, 'Number of doors is required'],
-    min: [2, 'Car must have at least 2 doors'],
-    max: [5, 'Car cannot have more than 5 doors']
+    required: [true, 'Le nombre de portes est obligatoire'],
+    min: [2, 'Le vehicule doit avoir au moins 2 portes'],
+    max: [5, 'Le vehicule ne peut pas avoir plus de 5 portes']
   },
   seats: {
     type: Number,
-    required: [true, 'Number of seats is required'],
-    min: [2, 'Car must have at least 2 seats'],
-    max: [9, 'Car cannot have more than 9 seats']
+    required: [true, 'Le nombre de places est obligatoire'],
+    min: [2, 'Le vehicule doit avoir au moins 2 places'],
+    max: [9, 'Le vehicule ne peut pas avoir plus de 9 places']
   },
   images: [{
     type: String,
-    required: [true, 'At least one car image is required']
+    required: [true, 'Au moins une image du vehicule est obligatoire']
   }],
   description: {
     type: String,
-    required: [true, 'Car description is required'],
-    minlength: [20, 'Description must be at least 20 characters']
+    required: [true, 'La description du vehicule est obligatoire'],
+    minlength: [20, 'La description doit contenir au moins 20 caracteres']
   },
   features: [{
     type: String,
@@ -78,7 +78,7 @@ const carSchema = new mongoose.Schema({
   }],
   condition: {
     type: String,
-    required: [true, 'Car condition is required'],
+    required: [true, 'L\'etat du vehicule est obligatoire'],
     enum: ['Excellent', 'Good', 'Fair', 'Poor']
   },
   isAvailable: {
@@ -91,11 +91,11 @@ const carSchema = new mongoose.Schema({
   },
   location: {
     type: String,
-    required: [true, 'Car location is required']
+    required: [true, 'La localisation est obligatoire']
   },
   contactNumber: {
     type: String,
-    required: [true, 'Contact number is required']
+    required: [true, 'Le numero de contact est obligatoire']
   },
   seller: {
     type: mongoose.Schema.Types.ObjectId,

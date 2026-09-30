@@ -8,7 +8,7 @@ const handleError = (res, error) => {
     return res.status(400).json({ message });
   }
   console.error(error);
-  return res.status(500).json({ message: 'Server error' });
+  return res.status(500).json({ message: 'Erreur du serveur' });
 };
 
 const extractPublicIdFromUrl = (url) => {
@@ -109,7 +109,7 @@ export const getCarById = async (req, res) => {
     if (car) {
       res.json(car);
     } else {
-      res.status(404).json({ message: 'Car not found' });
+      res.status(404).json({ message: 'Vehicule introuvable' });
     }
   } catch (error) {
     console.error(error);
@@ -134,7 +134,7 @@ export const createCar = async (req, res) => {
 
     // Check if at least one image was uploaded successfully
     if (imageUrls.length === 0) {
-      return res.status(400).json({ message: 'At least one car image is required' });
+      return res.status(400).json({ message: 'Au moins une image du vehicule est obligatoire' });
     }
 
     const car = new Car({
@@ -159,7 +159,7 @@ export const updateCar = async (req, res) => {
     if (car) {
       // Check if user is the seller or admin
       if (car.seller.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
-        return res.status(401).json({ message: 'Not authorized to update this car' });
+        return res.status(401).json({ message: 'Vous n\'etes pas autorise a modifier ce vehicule' });
       }
 
       // Handle new image uploads
@@ -194,7 +194,7 @@ export const updateCar = async (req, res) => {
 
       res.json(updatedCar);
     } else {
-      res.status(404).json({ message: 'Car not found' });
+      res.status(404).json({ message: 'Vehicule introuvable' });
     }
   } catch (error) {
     console.error(error);
@@ -210,7 +210,7 @@ export const deleteCar = async (req, res) => {
     if (car) {
       // Check if user is the seller or admin
       if (car.seller.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
-        return res.status(401).json({ message: 'Not authorized to delete this car' });
+        return res.status(401).json({ message: 'Vous n\'etes pas autorise a supprimer ce vehicule' });
       }
 
       // Delete images from Cloudinary before deleting the car
@@ -219,9 +219,9 @@ export const deleteCar = async (req, res) => {
       }
 
       await car.deleteOne();
-      res.json({ message: 'Car removed' });
+      res.json({ message: 'Vehicule supprime' });
     } else {
-      res.status(404).json({ message: 'Car not found' });
+      res.status(404).json({ message: 'Vehicule introuvable' });
     }
   } catch (error) {
     console.error(error);
@@ -248,11 +248,11 @@ export const searchCars = async (req, res) => {
     const { q } = req.query;
 
     if (!q) {
-      return res.status(400).json({ message: 'Search query is required' });
+      return res.status(400).json({ message: 'La recherche est obligatoire' });
     }
 
     if (q.length > 100) {
-      return res.status(400).json({ message: 'Search query too long (max 100 characters)' });
+      return res.status(400).json({ message: 'Recherche trop longue (100 caracteres maximum)' });
     }
 
     const searchRegex = { $regex: q, $options: 'i' };
@@ -280,17 +280,17 @@ export const removeCarImages = async (req, res) => {
     const { imageUrls } = req.body; // Array of image URLs to remove
 
     if (!imageUrls || !Array.isArray(imageUrls)) {
-      return res.status(400).json({ message: 'Image URLs array is required' });
+      return res.status(400).json({ message: 'Le tableau d\'URL d\'images est obligatoire' });
     }
 
     const car = await Car.findById(req.params.id);
 
     if (!car) {
-      return res.status(404).json({ message: 'Car not found' });
+      return res.status(404).json({ message: 'Vehicule introuvable' });
     }
 
     if (car.seller.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
-      return res.status(401).json({ message: 'Not authorized to modify this car' });
+      return res.status(401).json({ message: 'Vous n\'etes pas autorise a modifier ce vehicule' });
     }
 
     // Filter out the images to be removed
@@ -298,7 +298,7 @@ export const removeCarImages = async (req, res) => {
 
     // Check if at least one image remains
     if (remainingImages.length === 0) {
-      return res.status(400).json({ message: 'At least one car image is required' });
+      return res.status(400).json({ message: 'Au moins une image du vehicule est obligatoire' });
     }
 
     // Delete removed images from Cloudinary
@@ -309,7 +309,7 @@ export const removeCarImages = async (req, res) => {
     await car.save();
 
     res.json({
-      message: 'Images removed successfully',
+      message: 'Images supprimees avec succes',
       remainingImages: car.images
     });
   } catch (error) {

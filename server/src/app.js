@@ -62,7 +62,7 @@ app.use('/api/cars', carRoutes);
 checkEmailConfig();
 
 app.get('/api/health', (req, res) => {
-  res.json({ message: 'Car Dealership API is running' });
+  res.json({ message: 'L\'API carDekho est operationnelle' });
 });
 
 import { notFound, errorHandler } from './middlewares/error.js';

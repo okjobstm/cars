@@ -28,15 +28,15 @@ const Register = () => {
 
   const validateForm = () => {
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match')
+      setError('Les mots de passe ne correspondent pas')
       return false
     }
     if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters long')
+      setError('Le mot de passe doit contenir au moins 6 caractères')
       return false
     }
     if (formData.username.length < 3) {
-      setError('Username must be at least 3 characters long')
+      setError("Le nom d'utilisateur doit contenir au moins 3 caractères")
       return false
     }
     return true
@@ -75,12 +75,12 @@ const Register = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.5 }}
             src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1920&auto=format&fit=crop"
-            alt="Luxury Car Exterior"
+            alt="Voiture de luxe"
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute bottom-12 left-12 right-12 z-20">
-            <h3 className="text-3xl font-bold text-white mb-2">Join the Club</h3>
-            <p className="text-zinc-200 max-w-md">Create your account to start managing your collection and connecting with other enthusiasts.</p>
+            <h3 className="text-3xl font-bold text-white mb-2">Rejoignez le club</h3>
+            <p className="text-zinc-200 max-w-md">Créez votre compte pour gérer votre collection et échanger avec d'autres passionnes.</p>
           </div>
         </div>
       </div>
@@ -93,8 +93,8 @@ const Register = () => {
       >
         <div className="w-full max-w-md space-y-8">
           <div className="text-center lg:text-left">
-            <h2 className="heading-xl text-white mb-2">Create Account</h2>
-            <p className="text-zinc-400">Join our exclusive community of car lovers.</p>
+            <h2 className="heading-xl text-white mb-2">Créer un compte</h2>
+            <p className="text-zinc-400">Rejoignez notre communaute exclusive de passionnes de voitures.</p>
           </div>
 
           {error && (
@@ -109,7 +109,7 @@ const Register = () => {
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
-              <label htmlFor="username" className="label">Username</label>
+              <label htmlFor="username" className="label">Nom d'utilisateur</label>
               <input
                 id="username"
                 name="username"
@@ -119,12 +119,12 @@ const Register = () => {
                 value={formData.username}
                 onChange={handleChange}
                 className="input-field"
-                placeholder="Choose a username"
+                placeholder="Choisissez un nom d'utilisateur"
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="email" className="label">Email Address</label>
+              <label htmlFor="email" className="label">Adresse e-mail</label>
               <input
                 id="email"
                 name="email"
@@ -140,7 +140,7 @@ const Register = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               <div className="space-y-2">
-                <label htmlFor="password" className="label">Password</label>
+                <label htmlFor="password" className="label">Mot de passe</label>
                 <div className="relative">
                   <input
                     id="password"
@@ -168,7 +168,7 @@ const Register = () => {
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="confirmPassword" className="label">Confirm Password</label>
+                <label htmlFor="confirmPassword" className="label">Confirmer le mot de passe</label>
                 <div className="relative">
                   <input
                     id="confirmPassword"
@@ -202,10 +202,10 @@ const Register = () => {
               className="btn-primary w-full flex items-center justify-center space-x-2"
             >
               {loading ? (
-                <span>Creating account...</span>
+                <span>Création du compte...</span>
               ) : (
                 <>
-                  <span>Create Account</span>
+                  <span>Créer un compte</span>
                   <ArrowRightIcon className="w-4 h-4" />
                 </>
               )}
@@ -213,9 +213,9 @@ const Register = () => {
           </form>
 
           <p className="text-center text-sm text-zinc-400">
-            Already have an account?{' '}
+            Deja inscrit ?{' '}
             <Link to="/login" className="font-semibold text-white hover:underline">
-              Sign in here
+              Connectez-vous ici
             </Link>
           </p>
         </div>

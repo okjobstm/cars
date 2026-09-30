@@ -3,6 +3,7 @@ import axios from 'axios'
 import { motion, AnimatePresence } from 'framer-motion'
 import AddCarModal from '../components/AddCarModal'
 import { formatPrice } from '../utils/currency'
+import label from '../utils/labels'
 import {
   PlusIcon,
   PencilIcon,
@@ -45,7 +46,7 @@ const AdminPanel = () => {
   }
 
   const handleDeleteCar = async (carId) => {
-    if (window.confirm('Are you sure you want to delete this car?')) {
+    if (window.confirm('Voulez-vous vraiment supprimer ce véhicule ?')) {
       try {
         await axios.delete(`/api/cars/${carId}`)
         fetchData()
@@ -56,7 +57,7 @@ const AdminPanel = () => {
   }
 
   const handleDeleteUser = async (userId) => {
-    if (window.confirm('Are you sure you want to delete this user?')) {
+    if (window.confirm('Voulez-vous vraiment supprimer cet utilisateur ?')) {
       try {
         await axios.delete(`/api/users/${userId}`)
         fetchData()
@@ -67,9 +68,9 @@ const AdminPanel = () => {
   }
 
   const stats = [
-    { label: 'Total Cars', value: cars.length, icon: TruckIcon, color: 'text-blue-500', bg: 'bg-blue-500/10' },
-    { label: 'Total Users', value: users.length, icon: UserGroupIcon, color: 'text-purple-500', bg: 'bg-purple-500/10' },
-    { label: 'Total Value', value: formatPrice(cars.reduce((acc, car) => acc + car.price, 0)), icon: CurrencyDollarIcon, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+    { label: 'Véhicules', value: cars.length, icon: TruckIcon, color: 'text-blue-500', bg: 'bg-blue-500/10' },
+    { label: 'Utilisateurs', value: users.length, icon: UserGroupIcon, color: 'text-purple-500', bg: 'bg-purple-500/10' },
+    { label: 'Valeur totale', value: formatPrice(cars.reduce((acc, car) => acc + car.price, 0)), icon: CurrencyDollarIcon, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
   ]
 
   return (
@@ -77,15 +78,15 @@ const AdminPanel = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="heading-lg">Admin Dashboard</h1>
-          <p className="text-slate-400">Manage your inventory and users</p>
+          <h1 className="heading-lg">Tableau de bord</h1>
+          <p className="text-slate-400">Gérez votre stock et vos utilisateurs</p>
         </div>
         <button
           onClick={() => setShowAddCar(true)}
           className="btn-primary flex items-center gap-2"
         >
           <PlusIcon className="w-5 h-5" />
-          <span>Add New Car</span>
+          <span>Ajouter un véhicule</span>
         </button>
       </div>
 
@@ -121,7 +122,7 @@ const AdminPanel = () => {
           >
             <span className="capitalize flex items-center gap-2">
               {tab === 'cars' ? <TruckIcon className="w-5 h-5" /> : <UserIcon className="w-5 h-5" />}
-              {tab}
+              {tab === 'cars' ? 'Véhicules' : 'Utilisateurs'}
             </span>
             {activeTab === tab && (
               <motion.div
@@ -152,10 +153,10 @@ const AdminPanel = () => {
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="border-b border-slate-700/50 bg-slate-800/30">
-                      <th className="p-4 pl-6 text-slate-400 font-medium text-sm">Car</th>
-                      <th className="p-4 text-slate-400 font-medium text-sm">Price</th>
-                      <th className="p-4 text-slate-400 font-medium text-sm">Year</th>
-                      <th className="p-4 text-slate-400 font-medium text-sm">Condition</th>
+                      <th className="p-4 pl-6 text-slate-400 font-medium text-sm">Véhicule</th>
+                      <th className="p-4 text-slate-400 font-medium text-sm">Prix</th>
+                      <th className="p-4 text-slate-400 font-medium text-sm">Année</th>
+                      <th className="p-4 text-slate-400 font-medium text-sm">État</th>
                       <th className="p-4 pr-6 text-slate-400 font-medium text-sm text-right">Actions</th>
                     </tr>
                   </thead>
@@ -184,7 +185,7 @@ const AdminPanel = () => {
                             car.condition === 'Good' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
                               'bg-amber-500/10 text-amber-400 border-amber-500/20'
                             }`}>
-                            {car.condition}
+                            {label(car.condition)}
                           </span>
                         </td>
                         <td className="p-4 pr-6 text-right">
@@ -192,7 +193,7 @@ const AdminPanel = () => {
                             <button
                               onClick={() => {
                                 // Add edit logic here or in modal
-                                alert("Edit functionality to be implemented fully with modal")
+                                alert("La modification sera disponible bientot.")
                               }}
                               className="p-2 text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors"
                             >
@@ -218,7 +219,7 @@ const AdminPanel = () => {
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="border-b border-slate-700/50 bg-slate-800/30">
-                      <th className="p-4 pl-6 text-slate-400 font-medium text-sm">User</th>
+                      <th className="p-4 pl-6 text-slate-400 font-medium text-sm">Utilisateur</th>
                       <th className="p-4 text-slate-400 font-medium text-sm">Email</th>
                       <th className="p-4 text-slate-400 font-medium text-sm">Role</th>
                       <th className="p-4 pr-6 text-slate-400 font-medium text-sm text-right">Actions</th>
@@ -245,7 +246,7 @@ const AdminPanel = () => {
                             ? 'bg-purple-500/10 text-purple-400 border-purple-500/20'
                             : 'bg-slate-500/10 text-slate-400 border-slate-500/20'
                             }`}>
-                            {user.role}
+                            {label(user.role)}
                           </span>
                         </td>
                         <td className="p-4 pr-6 text-right">

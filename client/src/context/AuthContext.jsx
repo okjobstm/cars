@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       return { 
         success: false, 
-        message: error.response?.data?.message || 'Login failed' 
+        message: error.response?.data?.message || 'Connexion échouée' 
       }
     }
   }
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       return { 
         success: false, 
-        message: error.response?.data?.message || 'Registration failed' 
+        message: error.response?.data?.message || 'Inscription échouée' 
       }
     }
   }
@@ -88,7 +88,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       return { 
         success: false, 
-        message: error.response?.data?.message || 'Profile update failed' 
+        message: error.response?.data?.message || 'Échec de la mise à jour du profil' 
       }
     }
   }
