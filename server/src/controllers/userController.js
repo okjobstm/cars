@@ -127,8 +127,7 @@ export const updateUserProfile = async (req, res) => {
 
     // Only upload & update profilePicture if a file was actually sent
     if (req.file) {
-      const profileLocalPath = req.file.path.replace(/\\/g, "/");
-      const profile = await uploadOnCloudinary(profileLocalPath);
+      const profile = await uploadOnCloudinary(req.file.buffer);
       if (!profile || (!profile.url && !profile.secure_url)) {
         return res.status(400).json({ message: 'Erreur lors de l\'envoi de la photo de profil' });
       }

@@ -20,15 +20,17 @@ export const validate = (req, res, next) => {
     next();
 };
 
-const allowedOrigins = (FRONTEND_ORIGIN || '').split(',').map(origin => origin.trim().replace(/\/$/, ''));
-if (allowedOrigins.length === 0 || allowedOrigins.every(o => !o)) {
-    throw new Error('[CORS] FRONTEND_ORIGIN is required (comma-separated if multiple).');
+const allowedOrigins = (FRONTEND_ORIGIN || '').split(',').map(origin => origin.trim().replace(/\/$/, '')).filter(Boolean);
+if (allowedOrigins.length === 0) {
+    // Pas de FRONTEND_ORIGIN (serverless/same-origin) : on reflects l'origine.
+    // Ne jamais throw ici, ca tue la fonction a chaque invocation.
+    console.warn('[CORS] FRONTEND_ORIGIN absent, toutes origines reflechies.');
 }
-console.log('[CORS] Allowed origins:', allowedOrigins);
+console.log('[CORS] Allowed origins:', allowedOrigins.length ? allowedOrigins : '*');
 
 export const corsOptions = {
     origin(origin, callback) {
-        if (!origin) return callback(null, true); // non-browser
+        if (!origin || allowedOrigins.length === 0) return callback(null, true); // non-browser ou pas de config
         const cleaned = origin.replace(/\/$/, '');
         if (allowedOrigins.includes(cleaned)) return callback(null, true);
 

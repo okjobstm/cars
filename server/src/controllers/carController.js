@@ -124,7 +124,7 @@ export const createCar = async (req, res) => {
     if (req.files && req.files.length > 0) {
       // Upload each image to Cloudinary
       for (const file of req.files) {
-        const cloudinaryResponse = await uploadOnCloudinary(file.path);
+        const cloudinaryResponse = await uploadOnCloudinary(file.buffer);
         if (cloudinaryResponse && (cloudinaryResponse.url || cloudinaryResponse.secure_url)) {
           const imageUrl = cloudinaryResponse.secure_url || cloudinaryResponse.url;
           imageUrls.push(imageUrl);
@@ -167,7 +167,7 @@ export const updateCar = async (req, res) => {
       if (req.files && req.files.length > 0) {
         // Upload each new image to Cloudinary
         for (const file of req.files) {
-          const cloudinaryResponse = await uploadOnCloudinary(file.path);
+          const cloudinaryResponse = await uploadOnCloudinary(file.buffer);
           if (cloudinaryResponse && (cloudinaryResponse.url || cloudinaryResponse.secure_url)) {
             const imageUrl = cloudinaryResponse.secure_url || cloudinaryResponse.url;
             newImageUrls.push(imageUrl);

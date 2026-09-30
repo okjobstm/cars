@@ -4,8 +4,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { FRONTEND_ORIGIN } from './config/env.js';
 import morgan from 'morgan';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
 import userRoutes from './routes/userRoutes.js';
 import carRoutes from './routes/carRoutes.js';
@@ -20,8 +18,6 @@ const checkEmailConfig = () => {
 };
 
 const app = express();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 app.use(cookieParser());
 
@@ -51,10 +47,6 @@ app.use(morgan('combined'));
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
-
-import { promises as fsp } from 'fs';
-const uploadsDir = path.join(__dirname, 'uploads');
-fsp.stat(uploadsDir).catch(() => fsp.mkdir(uploadsDir, { recursive: true }).catch(() => { }));
 
 app.use('/api/users', userRoutes);
 app.use('/api/cars', carRoutes);
